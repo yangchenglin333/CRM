@@ -1,0 +1,459 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: CRM系统API文档
+  description: 客户关系管理系统后端API接口文档
+
+host: localhost:3000
+basePath: /api
+schemes:
+  - http
+
+paths:
+  /users/login:
+    post:
+      summary: 用户登录
+      description: 用户登录接口
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+                description: 用户名（4-50字符）
+              password:
+                type: string
+                description: 密码（6-32字符）
+      responses:
+        200:
+          description: 登录成功
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              user:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  username:
+                    type: string
+                  name:
+                    type: string
+                  phone:
+                    type: string
+                  email:
+                    type: string
+                  role:
+                    type: string
+        400:
+          description: 参数错误
+        401:
+          description: 用户名或密码错误
+
+  /users/info:
+    get:
+      summary: 获取用户信息
+      parameters:
+        - name: id
+          in: query
+          type: integer
+          required: true
+      responses:
+        200:
+          description: 成功
+        404:
+          description: 用户不存在
+
+  /users/update:
+    put:
+      summary: 更新用户信息
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              phone:
+                type: string
+              email:
+                type: string
+      responses:
+        200:
+          description: 更新成功
+        400:
+          description: 参数错误
+        404:
+          description: 用户不存在
+
+  /customers:
+    get:
+      summary: 获取客户列表
+      responses:
+        200:
+          description: 成功
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                phone:
+                  type: string
+                industry:
+                  type: string
+                tag:
+                  type: array
+                  items:
+                    type: string
+                follow_time:
+                  type: string
+                business_count:
+                  type: integer
+                remark:
+                  type: string
+
+    post:
+      summary: 新增客户
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: 客户名称（4-50字符）
+              phone:
+                type: string
+                description: 联系电话（11位手机号）
+              industry:
+                type: string
+                description: 所属行业
+              tag:
+                type: array
+                items:
+                  type: string
+              remark:
+                type: string
+      responses:
+        201:
+          description: 创建成功
+        400:
+          description: 参数错误
+
+  /customers/{id}:
+    get:
+      summary: 获取客户详情
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: 成功
+        404:
+          description: 客户不存在
+
+    put:
+      summary: 更新客户信息
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              phone:
+                type: string
+              industry:
+                type: string
+              tag:
+                type: array
+                items:
+                  type: string
+              remark:
+                type: string
+      responses:
+        200:
+          description: 更新成功
+        400:
+          description: 参数错误
+        404:
+          description: 客户不存在
+
+    delete:
+      summary: 删除客户
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: 删除成功
+        404:
+          description: 客户不存在
+
+  /business:
+    get:
+      summary: 获取商机列表
+      responses:
+        200:
+          description: 成功
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                customer_id:
+                  type: integer
+                name:
+                  type: string
+                amount:
+                  type: number
+                stage:
+                  type: string
+                probability:
+                  type: integer
+                follow_time:
+                  type: string
+                remark:
+                  type: string
+
+    post:
+      summary: 新增商机
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              customer_id:
+                type: integer
+              name:
+                type: string
+              amount:
+                type: number
+              stage:
+                type: string
+              probability:
+                type: integer
+      responses:
+        201:
+          description: 创建成功
+        400:
+          description: 参数错误
+
+  /business/{id}:
+    get:
+      summary: 获取商机详情
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: 成功
+        404:
+          description: 商机不存在
+
+    put:
+      summary: 更新商机
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              customer_id:
+                type: integer
+              name:
+                type: string
+              amount:
+                type: number
+              stage:
+                type: string
+              probability:
+                type: integer
+              remark:
+                type: string
+      responses:
+        200:
+          description: 更新成功
+        400:
+          description: 参数错误
+        404:
+          description: 商机不存在
+
+    delete:
+      summary: 删除商机
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: 删除成功
+        404:
+          description: 商机不存在
+
+  /contracts:
+    get:
+      summary: 获取合同列表
+      responses:
+        200:
+          description: 成功
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                customer_id:
+                  type: integer
+                business_id:
+                  type: integer
+                name:
+                  type: string
+                amount:
+                  type: number
+                sign_date:
+                  type: string
+                start_date:
+                  type: string
+                end_date:
+                  type: string
+                status:
+                  type: string
+
+    post:
+      summary: 新增合同
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              customer_id:
+                type: integer
+              business_id:
+                type: integer
+              name:
+                type: string
+              amount:
+                type: number
+              sign_date:
+                type: string
+              start_date:
+                type: string
+              end_date:
+                type: string
+      responses:
+        201:
+          description: 创建成功
+        400:
+          description: 参数错误
+
+  /approvals:
+    get:
+      summary: 获取审批列表
+      responses:
+        200:
+          description: 成功
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                type:
+                  type: string
+                target_id:
+                  type: integer
+                status:
+                  type: string
+                apply_time:
+                  type: string
+                approve_time:
+                  type: string
+                remark:
+                  type: string
+
+    post:
+      summary: 提交审批
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+              target_id:
+                type: integer
+      responses:
+        201:
+          description: 创建成功
+        400:
+          description: 参数错误
+
+  /approvals/{id}:
+    put:
+      summary: 审批操作
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              remark:
+                type: string
+      responses:
+        200:
+          description: 审批成功
+        400:
+          description: 参数错误
+        404:
+          description: 审批记录不存在
