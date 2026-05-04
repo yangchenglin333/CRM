@@ -1,0 +1,5 @@
+{
+  "customer_id": 1,
+  "name": "'; DROP TABLE contracts;--",
+  "amount": 1000000
+}

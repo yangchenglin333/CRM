@@ -24,7 +24,12 @@ const mockData = {
   ],
   users: [
     { id: 1, username: 'admin', password: '123456', name: '管理员', phone: '13812345678', email: 'admin@crm.com', role: 'admin' },
-    { id: 2, username: 'sales', password: '123456', name: '销售经理', phone: '13987654321', email: 'sales@crm.com', role: 'sales' }
+    { id: 2, username: 'sales', password: '123456', name: '销售经理', phone: '13987654321', email: 'sales@crm.com', role: 'sales' },
+    { id: 3, username: '张三', password: '123456', name: '张三', phone: '13600000001', email: 'zhangsan@crm.com', role: 'user' },
+    { id: 4, username: 'testuser', password: '123456', name: '测试用户', phone: '13600000002', email: 'testuser@crm.com', role: 'user' },
+    { id: 5, username: 'user123', password: '123456', name: '数字用户', phone: '13600000003', email: 'user123@crm.com', role: 'user' },
+    { id: 6, username: 'user_name', password: '123456', name: '下划线用户', phone: '13600000004', email: 'username@crm.com', role: 'user' },
+    { id: 7, username: '张三_test_001', password: '123456', name: '混合用户', phone: '13600000005', email: 'mixeduser@crm.com', role: 'user' }
   ],
   approvals: [
     { id: 1, type: 'contract', target_id: 1, status: 'approved', apply_time: '2024-02-20', approve_time: '2024-02-22', remark: '' },
@@ -51,8 +56,8 @@ app.post('/api/users/login', (req, res) => {
     return res.status(400).json({ message: '用户名和密码不能为空' });
   }
   
-  if (username.length < 4 || username.length > 50) {
-    return res.status(400).json({ message: '用户名长度必须在4-50个字符之间' });
+  if (username.length < 2 || username.length > 50) {
+    return res.status(400).json({ message: '用户名长度必须在2-50个字符之间' });
   }
   
   if (password.length < 6 || password.length > 32) {
@@ -307,6 +312,56 @@ app.delete('/api/business/:id', (req, res) => {
   res.json({ message: '删除成功' });
 });
 
+const mockFollowups = [
+  { id: 1, customer_id: 1, type: '拜访', content: '客户需求沟通', follow_time: '2024-03-10', result: '有意向' },
+  { id: 2, customer_id: 2, type: '电话', content: '产品介绍', follow_time: '2024-03-09', result: '考虑中' },
+  { id: 3, customer_id: 3, type: '拜访', content: '方案提交', follow_time: '2024-03-08', result: '待回复' }
+];
+
+app.get('/api/followups', (req, res) => {
+  res.json(mockFollowups);
+});
+
+app.post('/api/followups', (req, res) => {
+  const { customer_id, type, content, follow_time, result } = req.body;
+  
+  if (!customer_id || !type || !content) {
+    return res.status(400).json({ message: '客户ID、跟进类型和内容不能为空' });
+  }
+  
+  const newFollowup = {
+    id: mockFollowups.length + 1,
+    customer_id,
+    type,
+    content,
+    follow_time: follow_time || new Date().toISOString().split('T')[0],
+    result: result || ''
+  };
+  
+  mockFollowups.push(newFollowup);
+  res.status(201).json({ message: '新增跟进记录成功', followup: newFollowup });
+});
+
+app.put('/api/followups/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const { type, content, follow_time, result } = req.body;
+  
+  const followupIndex = mockFollowups.findIndex(f => f.id === id);
+  if (followupIndex === -1) {
+    return res.status(404).json({ message: '跟进记录不存在' });
+  }
+  
+  mockFollowups[followupIndex] = {
+    ...mockFollowups[followupIndex],
+    type: type || mockFollowups[followupIndex].type,
+    content: content || mockFollowups[followupIndex].content,
+    follow_time: follow_time || mockFollowups[followupIndex].follow_time,
+    result: result !== undefined ? result : mockFollowups[followupIndex].result
+  };
+  
+  res.json({ message: '更新跟进记录成功', followup: mockFollowups[followupIndex] });
+});
+
 app.get('/api/contracts', (req, res) => {
   res.json(mockData.contracts);
 });
@@ -345,6 +400,44 @@ app.post('/api/contracts', (req, res) => {
   
   mockData.contracts.push(newContract);
   res.status(201).json({ message: '新增合同成功', contract: newContract });
+});
+
+app.get('/api/contracts/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const contract = mockData.contracts.find(c => c.id === id);
+  if (contract) {
+    res.json(contract);
+  } else {
+    res.status(404).json({ message: '合同不存在' });
+  }
+});
+
+app.put('/api/contracts/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const { name, amount, start_date, end_date, status } = req.body;
+  const contractIndex = mockData.contracts.findIndex(c => c.id === id);
+  if (contractIndex === -1) {
+    return res.status(404).json({ message: '合同不存在' });
+  }
+  mockData.contracts[contractIndex] = {
+    ...mockData.contracts[contractIndex],
+    name: name || mockData.contracts[contractIndex].name,
+    amount: amount || mockData.contracts[contractIndex].amount,
+    start_date: start_date || mockData.contracts[contractIndex].start_date,
+    end_date: end_date || mockData.contracts[contractIndex].end_date,
+    status: status || mockData.contracts[contractIndex].status
+  };
+  res.json({ message: '更新成功', contract: mockData.contracts[contractIndex] });
+});
+
+app.delete('/api/contracts/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const contractIndex = mockData.contracts.findIndex(c => c.id === id);
+  if (contractIndex === -1) {
+    return res.status(404).json({ message: '合同不存在' });
+  }
+  mockData.contracts.splice(contractIndex, 1);
+  res.json({ message: '删除成功' });
 });
 
 app.get('/api/approvals', (req, res) => {
@@ -405,6 +498,62 @@ app.put('/api/approvals/:id', (req, res) => {
   }
   
   res.json({ message: '审批成功', approval: mockData.approvals[approvalIndex] });
+});
+
+app.get('/api/dashboard', (req, res) => {
+  const today = new Date().toISOString().split('T')[0];
+  res.json({
+    totalCustomers: mockData.customers.length,
+    totalBusiness: mockData.business.length,
+    totalContracts: mockData.contracts.length,
+    pendingApprovals: mockData.approvals.filter(a => a.status === 'pending').length,
+    todayFollowups: mockData.customers.filter(c => c.follow_time === today).length,
+    recentActivities: [
+      { type: 'customer', name: '新增客户', time: '2024-03-10' },
+      { type: 'business', name: '商机跟进', time: '2024-03-09' }
+    ]
+  });
+});
+
+app.get('/api/reports/customers', (req, res) => {
+  const industries = {};
+  mockData.customers.forEach(c => {
+    industries[c.industry] = (industries[c.industry] || 0) + 1;
+  });
+  res.json({
+    total: mockData.customers.length,
+    byIndustry: industries,
+    byTag: mockData.customers.reduce((acc, c) => {
+      c.tag.forEach(t => acc[t] = (acc[t] || 0) + 1);
+      return acc;
+    }, {})
+  });
+});
+
+app.get('/api/reports/business', (req, res) => {
+  const stages = {};
+  mockData.business.forEach(b => {
+    stages[b.stage] = (stages[b.stage] || 0) + 1;
+  });
+  const totalAmount = mockData.business.reduce((sum, b) => sum + b.amount, 0);
+  res.json({
+    total: mockData.business.length,
+    totalAmount,
+    byStage: stages
+  });
+});
+
+app.get('/api/reports/contracts', (req, res) => {
+  const statuses = {};
+  mockData.contracts.forEach(c => {
+    statuses[c.status] = (statuses[c.status] || 0) + 1;
+  });
+  const totalAmount = mockData.contracts.reduce((sum, c) => sum + c.amount, 0);
+  res.json({
+    total: mockData.contracts.length,
+    totalAmount,
+    byStatus: statuses
+  });
 });
 
 app.listen(port, () => {

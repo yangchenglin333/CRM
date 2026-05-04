@@ -1,0 +1,12 @@
+{
+  "message": "提交审批成功",
+  "approval": {
+    "id": 14,
+    "type": "contract",
+    "target_id": 1,
+    "status": "pending",
+    "apply_time": "2026-05-03",
+    "approve_time": "",
+    "remark": ""
+  }
+}

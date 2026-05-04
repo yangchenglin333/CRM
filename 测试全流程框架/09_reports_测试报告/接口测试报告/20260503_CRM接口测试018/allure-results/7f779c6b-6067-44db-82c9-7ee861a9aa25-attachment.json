@@ -1,0 +1,13 @@
+{
+  "message": "新增商机成功",
+  "business": {
+    "id": 16,
+    "customer_id": 1,
+    "name": "新商机",
+    "amount": 0.01,
+    "stage": "需求分析",
+    "probability": 0,
+    "follow_time": "2026-05-03",
+    "remark": ""
+  }
+}
