@@ -1,0 +1,13 @@
+{
+  "id": 1,
+  "name": "张总",
+  "phone": "13900139000",
+  "industry": "金融",
+  "tag": [
+    "VIP客户"
+  ],
+  "follow_time": "2024-01-15",
+  "business_count": 11,
+  "remark": "更新客户信息",
+  "level": "VIP"
+}

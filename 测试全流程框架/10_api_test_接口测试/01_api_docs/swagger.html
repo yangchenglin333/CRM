@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRM系统 API 文档</title>
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/swagger-ui/4.15.5/swagger-ui.css">
+</head>
+<body>
+  <div id="swagger-ui"></div>
+  <script src="https://cdn.bootcdn.net/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+  <script>
+    window.onload = function() {
+      fetch('swagger.yaml')
+        .then(response => response.text())
+        .then(yamlContent => {
+          const spec = jsyaml.load(yamlContent);
+          window.ui = SwaggerUIBundle({
+            spec: spec,
+            dom_id: '#swagger-ui',
+            presets: [SwaggerUIBundle.presets.apis],
+            layout: "BaseLayout"
+          });
+        })
+        .catch(error => {
+          console.error('Error loading swagger.yaml:', error);
+          document.getElementById('swagger-ui').innerHTML = '<pre>加载失败: ' + error + '</pre>';
+        });
+    };
+  </script>
+</body>
+</html>

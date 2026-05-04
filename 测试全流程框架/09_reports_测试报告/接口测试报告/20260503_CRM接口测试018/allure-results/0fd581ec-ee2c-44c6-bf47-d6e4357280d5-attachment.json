@@ -1,0 +1,11 @@
+{
+  "message": "新增跟进记录成功",
+  "followup": {
+    "id": 18,
+    "customer_id": 1,
+    "type": "电话",
+    "content": "客户跟进内容",
+    "follow_time": "2026-05-03",
+    "result": ""
+  }
+}

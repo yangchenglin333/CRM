@@ -1,0 +1,8 @@
+{
+  "id": 1,
+  "username": "admin",
+  "name": "管理员",
+  "phone": "13812345678",
+  "email": "admin@crm.com",
+  "role": "admin"
+}

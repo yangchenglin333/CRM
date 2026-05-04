@@ -1,0 +1,21 @@
+{
+  "env": "test",
+  "frontend_url": "http://localhost:5500/CRM.html",
+  "api_base_url": "http://localhost:3000",
+  "timeout": 30000,
+  "users": {
+    "admin": {
+      "username": "admin",
+      "password": "123456",
+      "role": "管理员"
+    },
+    "sales": {
+      "username": "sales",
+      "password": "123456",
+      "role": "销售经理"
+    }
+  },
+  "screenshot_on_failure": true,
+  "retry_count": 3,
+  "headless": false
+}

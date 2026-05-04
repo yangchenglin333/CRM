@@ -1,0 +1,13 @@
+{
+  "message": "新增商机成功",
+  "business": {
+    "id": 18,
+    "customer_id": 1,
+    "name": "'; DROP TABLE business;--",
+    "amount": 500000,
+    "stage": "需求分析",
+    "probability": 0,
+    "follow_time": "2026-05-03",
+    "remark": ""
+  }
+}

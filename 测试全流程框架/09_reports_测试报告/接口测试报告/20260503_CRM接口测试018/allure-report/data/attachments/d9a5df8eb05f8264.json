@@ -1,0 +1,13 @@
+{
+  "message": "新增客户成功",
+  "customer": {
+    "id": 27,
+    "name": "测试客户",
+    "phone": "13800138000",
+    "industry": "互联网",
+    "tag": [],
+    "follow_time": "2026-05-03",
+    "business_count": 0,
+    "remark": ""
+  }
+}

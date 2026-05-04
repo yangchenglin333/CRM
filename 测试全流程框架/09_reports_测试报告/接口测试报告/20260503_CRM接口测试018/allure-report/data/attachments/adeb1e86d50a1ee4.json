@@ -1,0 +1,142 @@
+[
+  {
+    "id": 2,
+    "customer_id": 2,
+    "name": "季度服务合同",
+    "amount": 80000,
+    "stage": "已签约",
+    "probability": 100,
+    "follow_time": "2024-02-25",
+    "remark": "已完成"
+  },
+  {
+    "id": 3,
+    "customer_id": 3,
+    "name": "设备采购项目",
+    "amount": 2000000,
+    "stage": "需求分析",
+    "probability": 30,
+    "follow_time": "2024-03-05",
+    "remark": "大型项目"
+  },
+  {
+    "id": 4,
+    "customer_id": 3,
+    "name": "新商机",
+    "amount": 50000,
+    "stage": "需求分析",
+    "probability": 0,
+    "follow_time": "2026-05-02",
+    "remark": ""
+  },
+  {
+    "id": 5,
+    "customer_id": 3,
+    "name": "新商机",
+    "amount": 50000,
+    "stage": "需求分析",
+    "probability": 0,
+    "follow_time": "2026-05-02",
+    "remark": ""
+  },
+  {
+    "id": 6,
+    "customer_id": 3,
+    "name": "新商机",
+    "amount": 50000,
+    "stage": "需求分析",
+    "probability": 0,
+    "follow_time": "2026-05-02",
+    "remark": ""
+  },
+  {
+    "id": 7,
+    "customer_id": 3,
+    "name": "新商机",
+    "amount": 50000,
+    "stage": "需求分析",
+    "probability": 0,
+    "follow_time": "2026-05-02",
+    "remark": ""
+  },
+  {
+    "id": 8,
+    "customer_id": 3,
+    "name": "新商机",
+    "amount": 50000,
+    "stage": "需求分析",
+    "probability": 0,
+    "follow_time": "2026-05-02",
+    "remark": ""
+  },
+  {
+    "id": 9,
+    "customer_id": 1,
+    "name": "新商机项目",
+    "amount": 500000,
+    "stage": "需求分析",
+    "probability": 60,
+    "follow_time": "2026-05-03",
+    "remark": ""
+  },
+  {
+    "id": 9,
+    "customer_id": 1,
+    "name": "新商机项目",
+    "amount": 500000,
+    "stage": "需求分析",
+    "probability": 60,
+    "follow_time": "2026-05-03",
+    "remark": ""
+  },
+  {
+    "id": 10,
+    "customer_id": 1,
+    "name": "新商机项目",
+    "amount": 500000,
+    "stage": "需求分析",
+    "probability": 60,
+    "follow_time": "2026-05-03",
+    "remark": ""
+  },
+  {
+    "id": 11,
+    "customer_id": 1,
+    "name": "新商机项目",
+    "amount": 500000,
+    "stage": "需求分析",
+    "probability": 30,
+    "follow_time": "2026-05-03",
+    "remark": ""
+  },
+  {
+    "id": 12,
+    "customer_id": 1,
+    "name": "新商机项目",
+    "amount": 500000,
+    "stage": "需求分析",
+    "probability": 30,
+    "follow_time": "2026-05-03",
+    "remark": ""
+  },
+  {
+    "id": 13,
+    "customer_id": 1,
+    "name": "新商机项目",
+    "amount": 500000,
+    "stage": "需求分析",
+    "probability": 30,
+    "follow_time": "2026-05-03",
+    "remark": ""
+  },
+  {
+    "id": 14,
+    "customer_id": 1,
+    "name": "新商机项目",
+    "amount": 500000,
+    "stage": "需求分析",
+    "probability": 30,
+    "follow_time": "2026-05-03",
+    "remark": ""
+  }
+]
